@@ -30,3 +30,44 @@ exports.register = (req, res, next) => {
         next(err);
     }
 };
+
+// Login Users
+exports.login = (req, res, next) => {
+    try {
+        Users.findByEmail(req.body.email, (err, data) => {
+            if (err) {
+                if (err.kind === "not_found") {
+                    res.status(404).send({
+                        success: false,
+                        message: `Not found User with email ${req.body.email}.`
+                    });
+                } else {
+                    res.status(500).send({
+                        success: false,
+                        message: "Error retrieving User with email " + req.body.email
+                    });
+                }
+            } else {
+                password = bcrypt.compareSync(req.body.password, data.password);
+                if(password) {
+                    delete data.password;
+                    if(data.status == "active") {
+                        response = {success: true, message: "Login Successful", data: data};
+                        res.send(response);
+                    } else if(data.status == "pending") {
+                        response = {success: false, message: "User is pending activation"};
+                        res.send(response);
+                    } else if(data.status == "blocked") {
+                        response = {success: false, message: "User is blocked by Admin"};
+                        res.send(response);
+                    }
+                } else {
+                    response = {success: false, message: "Invalid Password"};
+                    res.send(response);
+                }
+            };
+        });
+    } catch (err) {
+        next(err);
+    }
+};

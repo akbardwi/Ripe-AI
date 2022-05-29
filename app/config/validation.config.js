@@ -3,7 +3,7 @@ const Users = require("../models/users.model.js");
 const { body, param, validationResult } = require("express-validator");
 
 module.exports = {
-    // User name and email Validation
+    // User register Validation
     signupValidation: [
         body("firstname", "The firstname must be of minimum 3 characters length")
         .not()
@@ -49,21 +49,18 @@ module.exports = {
         .custom((value, {req}) => {
             return new Promise((resolve, reject) => {
                 sql.query(`SELECT * FROM users WHERE email = ?`, value,(err,res)=> {
-                if(err) {
-                    reject(new Error('Server Error'))
-                }
-            
-                if(res.length > 0) {
-                    reject(new Error('E-mail already in use'))
-                }
-            
-                resolve(true)
-            
-                });
-        
+                    if(err) {
+                        reject(new Error('Server Error'))
+                    }
+                
+                    if(res.length > 0) {
+                        reject(new Error('E-mail already in use'))
+                    }
+                
+                    resolve(true)            
+                });        
             });
-        }),
-        
+        }),        
 
         body("password", "The password must be of minimum 6 characters length")
         .not()
@@ -75,8 +72,26 @@ module.exports = {
         .escape(),
     ],
 
-    // User ID Validation
-    userID: [param("id", "Invalid User ID").trim().isInt()],
+    // User login validation
+    loginValidation: [
+        body("email", "Invalid email address")
+        .not()
+        .isEmpty()
+        .withMessage("email is required")
+        .trim()
+        .unescape()
+        .escape()
+        .isEmail(),
+
+        body("password", "The password must be of minimum 6 characters length")
+        .not()
+        .isEmpty()
+        .withMessage("password is required")
+        .isLength({ min: 6 })
+        .trim()
+        .unescape()
+        .escape(),
+    ],
 
     // Checking Validation Result
     result: (req, res, next) => {

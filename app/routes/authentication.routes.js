@@ -5,5 +5,9 @@ module.exports = app => {
 
     // Register User
     router.post("/register", validation.signupValidation, validation.result, authentication.register);
+
+    // Login User
+    router.post("/login", validation.loginValidation, validation.result, authentication.login);
+    
     app.use('/api/authentication', router);
 };

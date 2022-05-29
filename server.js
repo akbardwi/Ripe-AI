@@ -21,7 +21,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Ripe AI application." });
 });
 
-require("./app/routes/tutorial.routes.js")(app);
 require("./app/routes/authentication.routes.js")(app);
 
 // set port, listen for requests

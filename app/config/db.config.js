@@ -1,6 +1,6 @@
 module.exports = {
-  HOST: "localhost",
+  HOST: "34.101.117.165",
   USER: "root",
-  PASSWORD: "batang14",
-  DB: "ripeai"
+  PASSWORD: "root",
+  DB: "ripe-sql"
 };

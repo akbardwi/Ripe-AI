@@ -32,8 +32,8 @@ module.exports = {
         .isEmpty()
         .withMessage("phone is required")
         .isLength({ min: 10 })
-        .isInt()
-        .withMessage("The phone must be of numbers only")
+        // .isInt()
+        // .withMessage("The phone must be of numbers only")
         .trim()
         .unescape()
         .escape(),

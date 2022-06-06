@@ -17,7 +17,7 @@ exports.register = (req, res, next) => {
         users.password = bcrypt.hashSync(users.password, 10);
         Users.create(users, (err, data) => {
             if (err) 
-                res.status(500).send({
+                return res.status(500).send({
                     message: err.message || "Some error occurred while creating the Users."
                 });
             else 
@@ -37,12 +37,12 @@ exports.login = (req, res, next) => {
         Users.findByEmail(req.body.email, (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
-                    res.status(404).send({
+                    return res.status(404).send({
                         success: false,
                         message: `Not found User with email ${req.body.email}.`
                     });
                 } else {
-                    res.status(500).send({
+                    return res.status(500).send({
                         success: false,
                         message: "Error retrieving User with email " + req.body.email
                     });

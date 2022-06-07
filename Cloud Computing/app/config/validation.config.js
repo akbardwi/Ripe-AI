@@ -93,6 +93,40 @@ module.exports = {
         .escape(),
     ],
 
+    // Save History
+    saveHistoryValidation: [
+        body("email", "Invalid email address")
+        .not()
+        .isEmpty()
+        .withMessage("email is required")
+        .trim()
+        .unescape()
+        .escape()
+        .isEmail(),
+
+        body("fruit", "The fruit must be of minimum 3 characters length")
+        .not()
+        .isEmpty()
+        .withMessage("fruit is required")
+        .isLength({ min: 3 })
+        .isAlpha()
+        .withMessage("The fruit must be of alphabets only")
+        .trim()
+        .unescape()
+        .escape(),
+
+        body("ripeness", "The ripeness must be of minimum 3 characters length")
+        .not()
+        .isEmpty()
+        .withMessage("ripeness is required")
+        .isLength({ min: 3 })
+        .isAlpha()
+        .withMessage("The ripeness must be of alphabets only")
+        .trim()
+        .unescape()
+        .escape(),
+    ],
+
     // Checking Validation Result
     result: (req, res, next) => {
         const errors = validationResult(req);

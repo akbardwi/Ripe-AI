@@ -1,5 +1,4 @@
 const History = require("../models/history.model.js");
-var bcrypt = require('bcryptjs');
 
 // Create and Save a new History
 exports.saveHistory = (req, res, next) => { // Create a History

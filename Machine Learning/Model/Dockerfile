@@ -1,3 +1,3 @@
 FROM tensorflow/serving:latest
-COPY . /app
-WORKDIR /app
+WORKDIR /
+COPY Banana models/Banana

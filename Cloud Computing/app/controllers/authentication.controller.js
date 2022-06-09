@@ -34,7 +34,7 @@ exports.register = (req, res, next) => {
 // Login Users
 exports.login = (req, res, next) => {
     try {
-        Users.findByEmail(req.body.email, (err, data) => {
+        Users.checkLogin(req.body.email, (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
                     return res.status(404).send({
@@ -48,6 +48,7 @@ exports.login = (req, res, next) => {
                     });
                 }
             } else {
+                console.log(data)
                 password = bcrypt.compareSync(req.body.password, data.password);
                 if(password) {
                     delete data.password;

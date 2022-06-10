@@ -2,7 +2,7 @@
 Hello everyone!. Here is our repository for Bangkit 2022 Capstone project. Our team consist of 3 Machine Learning, 1 Android, and 2 Cloud Computing.
 
 ## Our Member
-|          Nama         | Bangkit ID |       Path       | University |
+|          Name         | Bangkit ID |       Path       | University |
 |:---------------------:|:----------:|:----------------:|:----------------:|
 |  	Muhammad Rayhan Atha`Illah Haqi  |  M2004F0249  | Machine Learning | Institut Teknologi Sepuluh Nopember |
 |  Wahyu Okta Perdana  |  M7308G2638  | Machine Learning | Universitas Riau |

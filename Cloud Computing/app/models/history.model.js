@@ -5,10 +5,11 @@ const History = function (history) {
     this.email_user = history.email_user;
     this.fruit = history.fruit;
     this.ripeness = history.ripeness;
+    this.img_url = history.img_url;
 };
 
-History.create = (newUser, result) => {
-    sql.query("INSERT INTO history SET ?", newUser, (err, res) => {
+History.create = (newHistory, result) => {
+    sql.query("INSERT INTO history SET ?", newHistory, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -17,11 +18,11 @@ History.create = (newUser, result) => {
 
         console.log("created history: ", {
             id: res.insertId,
-            ...newUser
+            ...newHistory
         });
         result(null, {
             id: res.insertId,
-            ...newUser
+            ...newHistory
         });
     });
 };

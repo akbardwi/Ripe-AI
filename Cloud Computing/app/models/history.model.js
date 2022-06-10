@@ -11,15 +11,10 @@ const History = function (history) {
 History.create = (newHistory, result) => {
     sql.query("INSERT INTO history SET ?", newHistory, (err, res) => {
         if (err) {
-            console.log("error: ", err);
             result(err, null);
             return;
         }
 
-        console.log("created history: ", {
-            id: res.insertId,
-            ...newHistory
-        });
         result(null, {
             id: res.insertId,
             ...newHistory
@@ -36,12 +31,10 @@ History.getAll = (email, result) => {
 
     sql.query(query, (err, res) => {
         if (err) {
-            console.log("error: ", err);
             result(null, err);
             return;
         }
 
-        console.log("history: ", res);
         result(null, res);
     });
 };

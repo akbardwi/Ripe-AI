@@ -17,8 +17,6 @@ exports.saveHistory = (req, res, next) => {
                 return res.status(500).send({
                     message: err.message || "Some error occurred while creating the History."
                 });
-             else 
-                console.log(data);
             
             response = {
                 success: true,

@@ -22,7 +22,6 @@ exports.register = (req, res, next) => {
                 });
             else 
                 delete data.password;
-                console.log(data);
                 response = {success: true, data: data};
                 res.send(response);        
         });
@@ -48,7 +47,6 @@ exports.login = (req, res, next) => {
                     });
                 }
             } else {
-                console.log(data)
                 password = bcrypt.compareSync(req.body.password, data.password);
                 if(password) {
                     delete data.password;

@@ -29,6 +29,8 @@ sudo docker run --name Banana -p 8501:8501 -p 8500:8500 --mount type=bind,source
 
 ### Python script example:
 
+You can find this code on Script/Inference.py
+
 ```python
 from urllib import response
 import requests

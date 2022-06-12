@@ -18,8 +18,8 @@ img = img / 255
 
 url = 'http://34.70.38.194:8501/v1/models/Banana:predict'
 data = json.dumps({"signature_name": "serving_default", "instances": img.tolist()})
-with open('data.json', 'w') as f:
-    json.dump(data, f)
+# with open('data.json', 'w') as f:
+#     json.dump(data, f)
 headers = {"Content-Type": "application/json"}
 response = requests.post(url, data = data)
 prediction = json.loads(response.text)["predictions"]

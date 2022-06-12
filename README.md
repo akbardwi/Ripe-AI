@@ -1,6 +1,10 @@
 # Bangkit 2022 Capstone Team : Ripe.AI (C22-PS338)
 Hello everyone!. Here is our repository for Bangkit 2022 Capstone project. Our team consist of 3 Machine Learning, 1 Android, and 2 Cloud Computing.
 
+## About Ripe.AI
+Ripe.AI is an application to detect the ripness level of a fruit, this application can help users to determine which fruit is ripe or not easily according to the user's wishes. 
+
+
 ## Our Member
 |          Name         | Bangkit ID |       Path       | University |
 |:---------------------:|:----------:|:----------------:|:----------------:|

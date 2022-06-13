@@ -1,6 +1,7 @@
 package com.dicoding.ripeai.ui.upload
 
 import android.Manifest
+import android.R.array
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
@@ -30,7 +31,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
 
@@ -124,9 +124,11 @@ class UploadActivity : AppCompatActivity() {
         var url =""
         when (intent.getStringExtra(EXTRA_FRUIT)) {
             "Banana" -> {
+                Log.d(TAG," fruit is Banana")
                 url ="http://34.128.102.68:8501/v1/Models/Banana:predict"
             }
             "Apple" -> {
+                Log.d(TAG," fruit is Apple ")
                 url ="http://34.128.102.68:8501/v1/Models/Apple:predict"
             }
             else -> {
@@ -185,35 +187,38 @@ class UploadActivity : AppCompatActivity() {
 
     private fun postprocessRESTResponse(responseObject: JSONObject) {
         // Process the REST response.
-        val predictionsArray = responseObject.getJSONArray("predictions")
+        var predictionsArray = responseObject.getJSONArray("predictions")
         //You only send one image, so you directly extract the first element.
 
         Log.d(TAG,"Data : $predictionsArray")
         binding.tvPrediction.text = predictionsArray.toString()
 
-        val booksJSONArray = JSONArray(predictionsArray)
-        for (i in 0 until booksJSONArray.length()) {
-            val book = booksJSONArray.getJSONObject(i)
-            Log.d(TAG,"Data : $book")
-        }
-        val pred =predictionsArray.getJSONObject(1)
-        Log.d(TAG,"Data : $pred")
-//        var predict_result = mutableMapOf<String, Double>()
-//        predict_result["Overipe"] = predictionsArray[0][0]
-//        predict_result["Ripe"] = predictionsArray[1] as Double
-//        predict_result["Unripe"] = predictionsArray[2] as Double
-//        predict_result = predict_result.toList().sortedBy { (_, value) -> value as Comparable<Any>}.toMap() as MutableMap<String, Double>
-//        Log.d(TAG,"Data : $predictionsArray, $predict_result")
+        predictionsArray = predictionsArray[0] as JSONArray
+
+        var predict_result = mutableMapOf<String, Double>()
+        predict_result["Overipe"] = predictionsArray[0] as Double
+        predict_result["Ripe"] = predictionsArray[1] as Double
+        predict_result["Unripe"] = predictionsArray[2] as Double
+
+        predict_result = predict_result.toList().sortedBy { (_, value) -> value as Comparable<Any>}.toMap() as MutableMap<String, Double>
+        Log.d(TAG,"Data : $predictionsArray, $predict_result")
 //        if (predict_result["Overipe"] == 1.0 || predict_result["Ripe"] == 1.0 || predict_result["Unripe"] == 1.0) {
-//            var error = "Is not a Banana"
-//            binding.tvFruitName.text = error
-//            binding.tvPrediction.text = error
+//            var desc =""
+//            if(predict_result["Overipe"] == 1.0){
+//                desc = "Overripe"
+//            } else if(predict_result["Ripe"] == 1.0 ) {
+//                desc = "Ripe"
+//            }
+//            else if (predict_result["Unripe"] == 1.0){
+//                desc = "Unripe"
+//            }
+//            binding.tvPrediction.text = "Ripeness Level : $desc"
 //        }
 //        else {
-//            var overipe_result = (predict_result["Overipe"].toString() + " %") as String.Companion
-//            var ripe_result = (predict_result["Ripe"].toString() + " %") as String.Companion
-//            var unripe_result = (predict_result["Unripe"].toString() + " %") as String.Companion
-//            binding.tvPrediction.text = "$overipe_result/n$ripe_result/n$unripe_result"
+            var overipe_result = ((predict_result["Overipe"]?.times(100)))
+            var ripe_result = ((predict_result["Ripe"]?.times(100)))
+            var unripe_result = ((predict_result["Unripe"]?.times(100)))
+            binding.tvPrediction.text = " Overripe : $overipe_result % \n Ripe: $ripe_result % \n Unripe: $unripe_result %"
 //        }
 
 
